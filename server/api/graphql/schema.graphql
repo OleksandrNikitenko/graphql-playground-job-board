@@ -1,0 +1,46 @@
+type Query {
+    job(id: ID!): Job
+    jobs(limit: Int, offset: Int): JobSubList
+    company(id: ID!): Company
+}
+
+type Mutation {
+    createJob(input: CreateJobInput!): Job
+    deleteJob(id: ID!): Job
+    updateJob(input: UpdateJobInput!): Job
+}
+
+
+"""Single Job entity"""
+type Job {
+    id: ID!
+    title: String!
+    description: String
+    """Job publish date in ISO-8601 format (yyyy-MM-dd)"""
+    date: String!
+    company: Company!
+}
+
+type JobSubList {
+    items: [Job!]!
+    totalCount: Int!
+}
+
+
+type Company {
+    id: ID!
+    name: String!
+    description: String
+    jobs: [Job!]!
+}
+
+input CreateJobInput {
+    title: String!
+    description: String
+}
+
+input UpdateJobInput {
+    id: ID!
+    title: String!
+    description: String
+}
